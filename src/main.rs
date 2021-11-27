@@ -1,8 +1,10 @@
 use chrono::{DateTime, Utc};
 use regex::Regex;
 use reqwest;
+use std::fs;
 use std::fs::File;
 use std::io::Write;
+use std::path::Path;
 use std::process::exit;
 use std::string;
 
@@ -13,6 +15,9 @@ async fn main() {
     let mut prev_url: String;
     let date: DateTime<Utc> = Utc::now();
     let log_file: String = format!("{}.log", date.format("%H-%M-%S %F"));
+    if !Path::new("./logs").exists() {
+        fs::create_dir("./logs");
+    }
     let mut f = File::create(format!("./logs/{}", log_file)).expect("Unable to create file.");
 
     let url_regex = Regex::new(r#"<a\s+.+?[>]"#).unwrap();
