@@ -11,7 +11,9 @@ use std::string;
 #[tokio::main]
 async fn main() {
     let mut visited = vec![];
-    let mut url: String = "https://stackoverflow.com/".to_string();
+    let mut url = String::new();
+    println!("Enter website to srape: ");
+    std::io::stdin().read_line(&mut url).unwrap();
     let mut prev_url: String;
     let date: DateTime<Utc> = Utc::now();
     let log_file: String = format!("{}.log", date.format("%H-%M-%S %F"));
